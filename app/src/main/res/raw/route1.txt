@@ -1,5 +1,6 @@
-Bath Abbey,51.382378,-2.358606
-Roman Baths,51.381280,-2.359598
 Royal Crescent,51.387469,-2.368401
+Bath Assembly Rooms,51.386860,-2.362843
 Fudge Kitchen,51.381640,-2.359952
+Roman Baths,51.381280,-2.359598
+Bath Abbey,51.382378,-2.358606
 Pultney Bridge,51.382941,-2.358179

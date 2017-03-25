@@ -1,9 +1,11 @@
 package com.example.mortuie.bathlaunchpad2017;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;;import java.io.BufferedI
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -59,6 +62,7 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
                 Place selectedPlace = PlacePicker.getPlace(this, data);
                 mMap.addMarker(new MarkerOptions().position(selectedPlace.getLatLng()).title(selectedPlace.getName().toString()));
                 places.add(selectedPlace.getName() + "," + selectedPlace.getLatLng().latitude + "," + selectedPlace.getLatLng().longitude);
+                mMap.setMinZoomPreference(15);
             }
         }
     }
@@ -88,16 +92,21 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
     private void writeToFile(ArrayList<String> arrayList) {
 
         try {
-            PrintWriter printWriter = new PrintWriter("log.txt", "UTF-8");
-            printWriter.println("THE NEXT LINE");
-            printWriter.println("THE SECOND LINE");
-            printWriter.close();
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("log.txt")));
-            String inputLine;
-            while ((inputLine = bufferedReader.readLine()) != null) {
-                System.out.println(inputLine);
-            } bufferedReader.close();
+            FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
+            EditText rN = (EditText) findViewById(R.id.routeName);
+            String routeName = rN.getText().toString();
+            outputStream.write(("First Line \n").getBytes());
+            outputStream.write(("Second Line \n").getBytes());
+            outputStream.close();
+            FileInputStream fis;
+            fis = openFileInput("data.txt");
+            byte[] buffer = new byte[1024];
+            int n;
+            while ((n = fis.read(buffer)) != -1) {
+                String string =new String(buffer, 0, n);
+                System.out.println(string);
+            }
+            fis.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

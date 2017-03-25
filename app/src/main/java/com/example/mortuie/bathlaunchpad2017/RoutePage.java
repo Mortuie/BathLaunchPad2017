@@ -1,6 +1,7 @@
 package com.example.mortuie.bathlaunchpad2017;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -84,12 +85,16 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
 
             mMap.addPolyline(polylineOptions);
             mMap.setMinZoomPreference(14);
+
+            TextView routeDetails = (TextView) findViewById(R.id.routeDetails);
+            routeDetails.setText(mapPoints.get(mapPoint-1)[0] + " to " + mapPoints.get(mapPoint)[0] + " - You are " + (int)(mapPoint*100/mapPoints.size()) + "% completed");
         }
     }
 
     public void generateNextPath(){
         mMap.clear();
         PolylineOptions polylineOptions = new PolylineOptions();
+        // Changes the map points
         if(mapPoint < mapPoints.size()) {
             LatLng place = new LatLng(Double.valueOf(mapPoints.get(mapPoint)[1]), Double.valueOf(mapPoints.get(mapPoint)[2]));
             mMap.addMarker(new MarkerOptions().position(place).title(mapPoints.get(mapPoint)[0]).snippet("THos os a comment"));
@@ -101,11 +106,21 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
             mMap.moveCamera(CameraUpdateFactory.newLatLng(placeBefore));
             polylineOptions.add(placeBefore);
 
+            // Add grey line of where youve been
+            PolylineOptions whereYouveBeen = new PolylineOptions();
+            for(int i = 0; i < mapPoint; i++){
+                LatLng placeBeen = new LatLng(Double.valueOf(mapPoints.get(i)[1]), Double.valueOf(mapPoints.get(i)[2]));
+                whereYouveBeen.add(placeBeen);
+            }
+            whereYouveBeen.color(Color.argb(255, 0, 51, 204));
+            mMap.addPolyline(whereYouveBeen);
             mMap.addPolyline(polylineOptions);
             mMap.setMinZoomPreference(14);
+
+            TextView routeDetails = (TextView) findViewById(R.id.routeDetails);
+            routeDetails.setText(mapPoints.get(mapPoint-1)[0] + " to " + mapPoints.get(mapPoint)[0] + " - You are " + (int)(mapPoint*100/mapPoints.size()) + "% completed");
         } else {
-            Button n = (Button) findViewById(R.id.nextPoint);
-            n.setText("Route Finished");
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 

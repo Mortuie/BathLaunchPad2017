@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.io.FileInputStream;
@@ -34,10 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void addDropDownOfRoutes(){
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
+        Button customRoute = (Button) findViewById(R.id.customRoute);
         ArrayList<String> routeNames = new ArrayList<>();
         // Adds the route names to the arraylist
         try {
             spinner.setVisibility(View.VISIBLE);
+            customRoute.setVisibility(View.VISIBLE);
             FileInputStream fis = openFileInput("data.txt");
             byte[] buffer = new byte[1024];
             int n = 0;
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             spinner.setAdapter(dataAdapter);
         } catch (IOException e) {
             spinner.setVisibility(View.INVISIBLE);
+            customRoute.setVisibility(View.INVISIBLE);
+
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.mortuie.bathlaunchpad2017;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -60,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             while((line = reader.readLine()) != null){
                 String[] map = line.split(",");
                 LatLng place = new LatLng(Double.valueOf(map[1]), Double.valueOf(map[2]));
-                mMap.addMarker(new MarkerOptions().position(place).title(map[0]));
+                mMap.addMarker(new MarkerOptions().position(place).title(map[0]).snippet("THos os a comment"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(place));
                 polylineOptions.add(place);
             }
@@ -69,5 +70,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void goToTheRoute(View view){
+        Intent intent = new Intent(this, RoutePage.class);
+        intent.putExtra("routeID", 1);
+        startActivity(intent);
+
     }
 }

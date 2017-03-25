@@ -80,35 +80,40 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
 
     public void submitRoute(View view){
         //Leon writes to a file
-        writeToFile(places);
-
-        startActivity(new Intent(this, MainActivity.class));
+        if(writeToFile(places)) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
     }
 
-    private void writeToFile(ArrayList<String> arrayList) {
+    private boolean writeToFile(ArrayList<String> arrayList) {
+        EditText rN = (EditText) findViewById(R.id.routeName);
+        String routeName = rN.getText().toString();
+        if(!routeName.trim().isEmpty()) {
+            try {
+                FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
 
-        try {
-            FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
-            EditText rN = (EditText) findViewById(R.id.routeName);
-            String routeName = rN.getText().toString();
-            outputStream.write(("First Line \n").getBytes());
-            outputStream.write(("Second Line \n").getBytes());
-            outputStream.close();
-            FileInputStream fis;
-            fis = openFileInput("data.txt");
-            byte[] buffer = new byte[1024];
-            int n;
-            while ((n = fis.read(buffer)) != -1) {
-                String string =new String(buffer, 0, n);
-                System.out.println(string);
+                outputStream.write(("First Line \n").getBytes());
+                outputStream.write(("Second Line \n").getBytes());
+                outputStream.close();
+                FileInputStream fis;
+                fis = openFileInput("data.txt");
+                byte[] buffer = new byte[1024];
+                int n;
+                while ((n = fis.read(buffer)) != -1) {
+                    String string = new String(buffer, 0, n);
+                    System.out.println(string);
+                }
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return true;
+        } else {
+            return false;
         }
     }
 

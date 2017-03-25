@@ -18,4 +18,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("routeID", 1);
         startActivity(intent);
     }
+
+    public void goToTest(View view){
+        Intent intent = new Intent(this, test.class);
+        startActivity(intent);
+    }
 }

@@ -15,7 +15,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;;import java.util.ArrayList;
+import com.google.android.gms.maps.model.MarkerOptions;;import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 // this is the API key: AIzaSyCuot73LGetaKOTpAyO0r4tZOQQAg2vu_Q
 
@@ -68,11 +76,31 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
 
     public void submitRoute(View view){
         //Leon writes to a file
+        writeToFile(places);
+
         startActivity(new Intent(this, MainActivity.class));
     }
 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
+
+    private void writeToFile(ArrayList<String> arrayList) {
+
+        try {
+            PrintWriter printWriter = new PrintWriter("log.txt", "UTF-8");
+            printWriter.println("THE NEXT LINE");
+            printWriter.println("THE SECOND LINE");
+            printWriter.close();
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("log.txt")));
+            String inputLine;
+            while ((inputLine = bufferedReader.readLine()) != null) {
+                System.out.println(inputLine);
+            } bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

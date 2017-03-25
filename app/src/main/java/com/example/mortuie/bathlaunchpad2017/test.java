@@ -15,7 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;;
+import com.google.android.gms.maps.model.MarkerOptions;;import java.util.ArrayList;
 
 // this is the API key: AIzaSyCuot73LGetaKOTpAyO0r4tZOQQAg2vu_Q
 
@@ -24,6 +24,7 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
 
     int PLACE_PICKER_REQUEST = 1;
     GoogleMap mMap;
+    ArrayList<String> places = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
             if (resultCode == RESULT_OK) {
                 Place selectedPlace = PlacePicker.getPlace(this, data);
                 mMap.addMarker(new MarkerOptions().position(selectedPlace.getLatLng()).title(selectedPlace.getName().toString()));
+                places.add(selectedPlace.getName() + "," + selectedPlace.getLatLng().latitude + "," + selectedPlace.getLatLng().longitude);
             }
         }
     }

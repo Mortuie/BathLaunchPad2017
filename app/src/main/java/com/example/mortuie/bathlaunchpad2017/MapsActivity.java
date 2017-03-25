@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,17 +54,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        PolylineOptions polylineOptions = new PolylineOptions();
         String line;
         try {
             while((line = reader.readLine()) != null){
                 String[] map = line.split(",");
-                LatLng sydney = new LatLng(Double.valueOf(map[1]), Double.valueOf(map[2]));
-                mMap.addMarker(new MarkerOptions().position(sydney).title(map[0]));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
+                LatLng place = new LatLng(Double.valueOf(map[1]), Double.valueOf(map[2]));
+                mMap.addMarker(new MarkerOptions().position(place).title(map[0]));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(place));
+                polylineOptions.add(place);
             }
-            mMap.setMinZoomPreference(15);
+            mMap.addPolyline(polylineOptions);
+            mMap.setMinZoomPreference(14);
         } catch (IOException e) {
             e.printStackTrace();
         }

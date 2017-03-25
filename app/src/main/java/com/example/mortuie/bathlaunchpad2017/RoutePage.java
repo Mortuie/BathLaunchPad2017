@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,19 +37,48 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_page);
         Bundle i = getIntent().getExtras();
-        String ib = i.get("routeID").toString();
+        String bundleString = i.get("routeID").toString();
 
-        is = this.getResources().openRawResource(R.raw.route1);
-        reader = new BufferedReader(new InputStreamReader(is));
-
+        if(bundleString.equals("1")) {
+            is = this.getResources().openRawResource(R.raw.route1);
+            reader = new BufferedReader(new InputStreamReader(is));
+        }
+        // Adds the map points to the array list
         String line;
-        try {
-            while((line = reader.readLine()) != null){
-                String[] splitString = line.split(",");
-                mapPoints.add(splitString);
+        if(is != null) {
+            try {
+                while ((line = reader.readLine()) != null) {
+                    String[] map = line.split(",");
+                    mapPoints.add(map);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            try {
+                FileInputStream fis = openFileInput("data.txt");
+                byte[] buffer = new byte[1024];
+                int n = 0;
+                while ((n = fis.read(buffer)) != -1) {
+                    String string = new String(buffer, 0, n);
+                    String[] split = string.split("\n");
+                    for (int j = 0; j < split.length; j++) {
+                        String[] splitAgain = split[j].split(",");
+                        boolean thisRoute = false;
+                        if (splitAgain[0].equals("route")) {
+                            thisRoute = true;
+                        } else if (splitAgain[0].equals("route")) {
+                            thisRoute = false;
+                            break;
+                        } else {
+                            mapPoints.add(splitAgain);
+                        }
+                    }
+                }
+                fis.close();
+            } catch (IOException e) {
+
+            }
         }
 
 

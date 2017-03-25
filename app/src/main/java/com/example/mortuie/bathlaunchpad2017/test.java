@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -15,17 +14,9 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;;import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
+import com.google.android.gms.maps.model.MarkerOptions;;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 // this is the API key: AIzaSyCuot73LGetaKOTpAyO0r4tZOQQAg2vu_Q
@@ -96,22 +87,12 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
             try {
                 FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
 
-                outputStream.write((routeName + "\n").getBytes());
-
+                outputStream.write(("route," + routeName + "\n").getBytes());
                 for (String stringInArrayList: arrayList) {
                     outputStream.write((stringInArrayList + "\n").getBytes());
                 }
 
                 outputStream.close();
-                FileInputStream fis;
-                fis = openFileInput("data.txt");
-                byte[] buffer = new byte[1024];
-                int n;
-                while ((n = fis.read(buffer)) != -1) {
-                    String string = new String(buffer, 0, n);
-                    System.out.println(string);
-                }
-                fis.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

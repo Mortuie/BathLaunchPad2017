@@ -96,8 +96,12 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
             try {
                 FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
 
-                outputStream.write(("First Line \n").getBytes());
-                outputStream.write(("Second Line \n").getBytes());
+                outputStream.write((routeName + "\n").getBytes());
+
+                for (String stringInArrayList: arrayList) {
+                    outputStream.write((stringInArrayList + "\n").getBytes());
+                }
+
                 outputStream.close();
                 FileInputStream fis;
                 fis = openFileInput("data.txt");

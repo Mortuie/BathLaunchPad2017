@@ -62,12 +62,12 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
                 while ((n = fis.read(buffer)) != -1) {
                     String string = new String(buffer, 0, n);
                     String[] split = string.split("\n");
+                    boolean thisRoute = false;
                     for (int j = 0; j < split.length; j++) {
                         String[] splitAgain = split[j].split(",");
-                        boolean thisRoute = false;
-                        if (splitAgain[0].equals("route")) {
+                        if (splitAgain[0].equals("route") && splitAgain[1].equals(bundleString)) {
                             thisRoute = true;
-                        } else if (splitAgain[0].equals("route")) {
+                        } else if (splitAgain[0].equals("route") && thisRoute) {
                             thisRoute = false;
                             break;
                         } else {

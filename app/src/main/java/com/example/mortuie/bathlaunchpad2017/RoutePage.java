@@ -174,8 +174,8 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
         if(string.trim().equals(verificationCode.getText().toString().trim())){
             addPoints();
             verificationCode.setText("");
-            generateNextPath();
             mapPoint ++;
+            generateNextPath();
         } else {
             Toast.makeText(this, "Verification Code Incorrect", Toast.LENGTH_SHORT).show();
         }

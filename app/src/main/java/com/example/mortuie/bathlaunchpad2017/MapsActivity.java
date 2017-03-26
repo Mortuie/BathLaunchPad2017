@@ -73,7 +73,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     polylineOptions.add(place);
                 }
                 mMap.addPolyline(polylineOptions);
-                mMap.setMinZoomPreference(14);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,14 +101,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     }
                     mMap.addPolyline(polylineOptions);
-                    mMap.setMinZoomPreference(14);
                 }
                 fis.close();
             } catch(IOException e){
-
+                e.printStackTrace();
             }
-
         }
+        mMap.setMinZoomPreference(14);
+
     }
 
     public void goToTheRoute(View view){

@@ -70,7 +70,7 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
                         } else if (splitAgain[0].equals("route") && thisRoute) {
                             thisRoute = false;
                             break;
-                        } else {
+                        } else if (thisRoute){
                             mapPoints.add(splitAgain);
                         }
                     }

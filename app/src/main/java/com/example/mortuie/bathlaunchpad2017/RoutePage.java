@@ -172,6 +172,7 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
         }
         if(string.trim().equals(verificationCode.getText().toString().trim())){
             addPoints();
+            verificationCode.setText("");
             generateNextPath();
             mapPoint ++;
         } else {

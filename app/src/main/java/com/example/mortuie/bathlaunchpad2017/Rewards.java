@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -45,10 +46,15 @@ public class Rewards extends AppCompatActivity {
         int i = getResources().getIdentifier(id, "id", getApplicationContext().getPackageName());
         TextView pointsString = (TextView)findViewById(i);
         if(!pointsString.getText().toString().equals("Used")) {
-            view.setBackgroundColor(Color.GREEN);
             String points = pointsString.getText().toString();
-            removePoints(Integer.parseInt(points.split(" ")[0]));
-            pointsString.setText("Used");
+            int pointsToBeRemoved = Integer.parseInt(points.split(" ")[0]);
+            if(pointsToBeRemoved < getPoints()) {
+                removePoints(pointsToBeRemoved);
+                view.setBackgroundColor(Color.GREEN);
+                pointsString.setText("Used");
+            } else {
+                Toast.makeText(this, "You dont have enough points", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

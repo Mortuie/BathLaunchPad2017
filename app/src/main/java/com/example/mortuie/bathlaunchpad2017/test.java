@@ -85,7 +85,7 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
         String routeName = rN.getText().toString();
         if((!routeName.trim().isEmpty()) && (places.size()!=1)) {
             try {
-                FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
+                FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_APPEND); // TODO: Make sure this can be read
 
                 outputStream.write(("route," + routeName + "\n").getBytes());
                 for (String stringInArrayList: arrayList) {

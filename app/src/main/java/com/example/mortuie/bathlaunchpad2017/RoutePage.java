@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -160,7 +162,14 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
     public void getNextPath(View view){
         EditText verificationCode = (EditText) findViewById(R.id.verificationCode);
         GettingData gd = new GettingData();
-        if(gd.getValueOfWebsite().trim().equals(verificationCode.getText().toString().trim())){
+        gd.start();
+        String string;
+        while(true){
+            if((string = gd.getValue()) != null && !string.isEmpty()){
+                break;
+            }
+        }
+        if(string.trim().equals(verificationCode.getText().toString().trim())){
             addPoints();
             generateNextPath();
             mapPoint ++;
@@ -193,4 +202,5 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
             return 0;
         }
     }
+
 }

@@ -94,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         } else if(splitAgain[0].equals("route")){
                             thisRoute = false;
                             break;
-                        } else {
+                        } else if(thisRoute){
                             LatLng place = new LatLng(Double.valueOf(splitAgain[1]), Double.valueOf(splitAgain[2]));
                             mMap.addMarker(new MarkerOptions().position(place).title(splitAgain[0]).snippet("This is a comment"));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(place));

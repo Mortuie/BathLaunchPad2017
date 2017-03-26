@@ -11,6 +11,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -53,6 +54,7 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
                 Place selectedPlace = PlacePicker.getPlace(this, data);
                 mMap.addMarker(new MarkerOptions().position(selectedPlace.getLatLng()).title(selectedPlace.getName().toString()));
                 places.add(selectedPlace.getName() + "," + selectedPlace.getLatLng().latitude + "," + selectedPlace.getLatLng().longitude);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPlace.getLatLng()));
                 mMap.setMinZoomPreference(15);
             }
         }

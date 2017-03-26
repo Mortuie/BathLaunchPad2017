@@ -1,5 +1,6 @@
 package com.example.mortuie.bathlaunchpad2017;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -148,7 +150,7 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
             mMap.setMinZoomPreference(14);
 
             TextView routeDetails = (TextView) findViewById(R.id.routeDetails);
-            routeDetails.setText(mapPoints.get(mapPoint-1)[0] + " to " + mapPoints.get(mapPoint)[0] + " - You are " + (int)(mapPoint*100/mapPoints.size()) + "% completed");
+            routeDetails.setText(mapPoints.get(mapPoint-1)[0] + " to " + mapPoints.get(mapPoint)[0] + " - You are " + (int)(mapPoint*100/mapPoints.size()) + "% completed" + " Points: " + getPoints());
         } else {
             startActivity(new Intent(this, MainActivity.class));
         }
@@ -156,6 +158,33 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
 
     public void getNextPath(View view){
         mapPoint ++;
+        addPoints();
         generateNextPath();
+    }
+
+    private void addPoints(){
+        try {
+            int points = getPoints() + 100;
+            FileOutputStream outputStream = openFileOutput(("points.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
+            outputStream.write((String.valueOf(points)).getBytes());
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private int getPoints(){
+        try {
+            FileInputStream fis = openFileInput("points.txt");
+            byte[] buffer = new byte[1024];
+            int n = 0;
+            String string = "";
+            while ((n = fis.read(buffer)) != -1) {
+                string = new String(buffer, 0, n);
+            }
+            return Integer.parseInt(string);
+        } catch (IOException e) {
+            return 0;
+        }
     }
 }

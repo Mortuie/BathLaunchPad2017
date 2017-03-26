@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,21 +23,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addDropDownOfRoutes();
+        TextView points = (TextView) findViewById(R.id.points);
+        points.setText(getPoints());
     }
 
-    public void goToRoute(View view){
+    public void goToRoute(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("routeID", 1);
         startActivity(intent);
     }
 
-    public void goToTest(View view){
+    public void goToTest(View view) {
         Intent intent = new Intent(this, test.class);
         startActivity(intent);
     }
 
-    private void addDropDownOfRoutes(){
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+    private void addDropDownOfRoutes() {
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Button customRoute = (Button) findViewById(R.id.customRoute);
         ArrayList<String> routeNames = new ArrayList<>();
         // Adds the route names to the arraylist
@@ -47,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
             while ((n = fis.read(buffer)) != -1) {
                 String string = new String(buffer, 0, n);
                 String[] split = string.split("\n");
-                for(int i = 0; i < split.length; i++){
+                for (int i = 0; i < split.length; i++) {
                     String[] splitAgain = split[i].split(",");
-                    if(splitAgain[0].equals("route")){
+                    if (splitAgain[0].equals("route")) {
                         routeNames.add(splitAgain[1]);
                     }
                 }
@@ -65,11 +70,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void goToCustomRoute(View view){
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+    public void goToCustomRoute(View view) {
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("routeID", spinner.getSelectedItem().toString());
         startActivity(intent);
     }
+
+    private int getPoints() {
+        try {
+            FileInputStream fis = openFileInput("points.txt");
+            byte[] buffer = new byte[1024];
+            int n = 0;
+            String string = "";
+            while ((n = fis.read(buffer)) != -1) {
+                string = new String(buffer, 0, n);
+            }
+            return Integer.parseInt(string);
+        } catch (IOException e) {
+            return 0;
+        }
+    }
+
 
 }

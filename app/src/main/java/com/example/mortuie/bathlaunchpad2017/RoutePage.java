@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -158,8 +159,13 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
 
     public void getNextPath(View view){
         mapPoint ++;
-        addPoints();
-        generateNextPath();
+        EditText verificationCode = (EditText) findViewById(R.id.verificationCode);
+        GettingData gd = new GettingData();
+        if(gd.getValueOfWebsite().trim().equals(verificationCode.getText().toString().trim())){
+            addPoints();
+            generateNextPath();
+        }
+
     }
 
     private void addPoints(){

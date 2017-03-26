@@ -158,12 +158,12 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
     }
 
     public void getNextPath(View view){
-        mapPoint ++;
         EditText verificationCode = (EditText) findViewById(R.id.verificationCode);
         GettingData gd = new GettingData();
         if(gd.getValueOfWebsite().trim().equals(verificationCode.getText().toString().trim())){
             addPoints();
             generateNextPath();
+            mapPoint ++;
         }
 
     }

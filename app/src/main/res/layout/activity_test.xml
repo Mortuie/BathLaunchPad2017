@@ -28,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Route Name" />
+            android:text="Route Name"
+            android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
         <EditText
             android:id="@+id/routeName"
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="addPoint"
-            android:text="Add Point" />
+            android:text="Add Location" />
 
         <Button
             android:id="@+id/submitRoute"

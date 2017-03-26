@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -173,6 +174,8 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
             addPoints();
             generateNextPath();
             mapPoint ++;
+        } else {
+            Toast.makeText(this, "Verification Code Incorrect", Toast.LENGTH_SHORT).show();
         }
 
     }

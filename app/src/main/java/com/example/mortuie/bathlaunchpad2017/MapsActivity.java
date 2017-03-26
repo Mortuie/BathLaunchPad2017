@@ -89,9 +89,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     for (int i = 0; i < split.length; i++) {
                         String[] splitAgain = split[i].split(",");
                         boolean thisRoute = false;
-                        if (splitAgain[0].equals("route")) {
+                        if (splitAgain[0].equals("route") && splitAgain[1].equals(routeName)) {
                             thisRoute = true;
-                        } else if(splitAgain[0].equals("route")){
+                        } else if(splitAgain[0].equals("route") && thisRoute){
                             thisRoute = false;
                             break;
                         } else if(thisRoute){

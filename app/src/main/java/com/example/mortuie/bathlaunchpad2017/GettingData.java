@@ -33,10 +33,8 @@ public class GettingData extends Thread{
             String line;
             while ((line = br.readLine()) != null) {
                 line = line.trim();
-                if (line.equals("TEST")) {
-                    lines = line;
-                    valueEntered = true;
-                }
+                lines = line;
+                valueEntered = true;
             }
 
         } catch (MalformedURLException e) {

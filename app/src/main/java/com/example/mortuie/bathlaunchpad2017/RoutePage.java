@@ -164,12 +164,13 @@ public class RoutePage extends FragmentActivity implements OnMapReadyCallback {
         EditText verificationCode = (EditText) findViewById(R.id.verificationCode);
         GettingData gd = new GettingData();
         gd.start();
-        String string;
+        String string = gd.getValue();
         while(true){
-            if((string = gd.getValue()) != null && !string.isEmpty()){
+            if(((string = gd.getValue()) != null) && (!string.isEmpty())){
                 break;
             }
         }
+        System.out.println("qwertyuiop");
         if(string.trim().equals(verificationCode.getText().toString().trim())){
             addPoints();
             verificationCode.setText("");

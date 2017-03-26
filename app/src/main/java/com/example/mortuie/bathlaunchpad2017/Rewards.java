@@ -48,7 +48,7 @@ public class Rewards extends AppCompatActivity {
         if(!pointsString.getText().toString().equals("Used")) {
             String points = pointsString.getText().toString();
             int pointsToBeRemoved = Integer.parseInt(points.split(" ")[0]);
-            if(pointsToBeRemoved < getPoints()) {
+            if(pointsToBeRemoved <= getPoints()) {
                 removePoints(pointsToBeRemoved);
                 view.setBackgroundColor(Color.GREEN);
                 pointsString.setText("Used");

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 String[] split = string.split("\n");
                 for(int i = 0; i < split.length; i++){
                     String[] splitAgain = split[i].split(",");
+                    System.out.println("1234567890" + splitAgain[0]);
                     if(splitAgain[0].equals("route")){
                         routeNames.add(splitAgain[1]);
                     }

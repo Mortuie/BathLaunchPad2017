@@ -83,7 +83,7 @@ public class test extends AppCompatActivity implements OnMapReadyCallback {
     private boolean writeToFile(ArrayList<String> arrayList) {
         EditText rN = (EditText) findViewById(R.id.routeName);
         String routeName = rN.getText().toString();
-        if(!routeName.trim().isEmpty()) {
+        if((!routeName.trim().isEmpty()) && (places.size()!=1)) {
             try {
                 FileOutputStream outputStream = openFileOutput(("data.txt"), Context.MODE_PRIVATE); // TODO: Make sure this can be read
 

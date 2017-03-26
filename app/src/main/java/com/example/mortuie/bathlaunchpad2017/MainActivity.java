@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToRewards(View view) {
+        Intent intent = new Intent(this, Rewards.class);
+        startActivity(intent);
+    }
+
     private void addDropDownOfRoutes() {
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         Button customRoute = (Button) findViewById(R.id.customRoute);

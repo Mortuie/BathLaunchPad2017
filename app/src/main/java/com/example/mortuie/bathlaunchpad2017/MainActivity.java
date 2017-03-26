@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addDropDownOfRoutes();
         TextView points = (TextView) findViewById(R.id.points);
-        points.setText(getPoints());
+        points.setText(String.valueOf(getPoints()));
     }
 
     public void goToRoute(View view) {
